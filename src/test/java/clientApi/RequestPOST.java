@@ -12,7 +12,7 @@ public class RequestPOST extends RequestClient {
     @Override
     public ResponseInformation send(RequestInformation request) {
         System.out.println("POST " + request.getUrl());
-        System.out.println("body " + request.getBody());
+        System.out.println("body  \n"+ request.getBody());
 
         Response response = this.client.target(request.getUrl())
                 .request(MediaType.APPLICATION_JSON_TYPE)

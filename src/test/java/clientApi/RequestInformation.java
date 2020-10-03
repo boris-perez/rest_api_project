@@ -1,6 +1,8 @@
 package clientApi;
 
+import javax.ws.rs.core.MultivaluedHashMap;
 import javax.ws.rs.core.MultivaluedMap;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -9,8 +11,8 @@ import java.util.Map;
 public class RequestInformation {
 
     private String url;
-    private Map<String, String> params;
-    private MultivaluedMap<String, Object> headers;
+    private Map<String, String> params = new HashMap<>();
+    private MultivaluedMap <String, Object> headers= new MultivaluedHashMap<>();
     private String body;
 
     public RequestInformation() { }
@@ -22,7 +24,7 @@ public class RequestInformation {
         this.body = body;
     }
 
-    public void addHeaders(String attribute, String value){
+    public void addHeaders(String attribute,String value){
         this.headers.add(attribute,value);
     }
 
