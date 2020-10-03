@@ -5,7 +5,13 @@
 * Junit 4.12
 # Ejecution
 * Ejecture the CRUD for projects
+
+``
 gradle clean cucumber -Psuite=@Projects
+``
 
 * Ejecture the CRUD for Items
+
+``
 gradle clean cucumber -Psuite=@Items
+``
