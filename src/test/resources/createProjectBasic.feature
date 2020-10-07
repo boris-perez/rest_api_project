@@ -1,10 +1,10 @@
 Feature: Project
-  @Projects
+  @ProjectsBasic
   Scenario: As a user I want to create a project so that organize my task
 
     Given I have authentication to todo.ly
     # consumiendo el request
-    When I send POST request 'api/projects.json' with json
+    When I send POST request 'api/projects.json' with json and BASIC authentication
     """
     {
        "Content":"TESTING",
@@ -41,7 +41,7 @@ Feature: Project
     And I get the property value 'Id' and save on ID_PROJECT
     And I get the property value 'Content' and save on NAME_PROJECT
 
-    When I send PUT request 'api/projects/ID_PROJECT.json' with json
+    When I send PUT request 'api/projects/ID_PROJECT.json' with json and BASIC authentication
     """
     {
        "Content":"NAME_PROJECT UPDATE",
@@ -76,7 +76,7 @@ Feature: Project
     }
     """
 
-    When I send GET request 'api/projects/ID_PROJECT.json' with json
+    When I send GET request 'api/projects/ID_PROJECT.json' with json and BASIC authentication
     """
     """
     Then I expected the response code 200
@@ -103,7 +103,7 @@ Feature: Project
         "SyncClientCreationId": null
     }
     """
-    When I send DELETE request 'api/projects/ID_PROJECT.json' with json
+    When I send DELETE request 'api/projects/ID_PROJECT.json' with json and BASIC authentication
     """
     """
     Then I expected the response code 200

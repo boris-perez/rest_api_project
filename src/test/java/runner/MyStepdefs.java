@@ -27,27 +27,34 @@ public class MyStepdefs {
 
     @Given("^I have authentication to todo\\.ly$")
     public void iHaveAuthenticationToTodoLy() {
+
     }
 
-    @When("^I send (POST|PUT|DELETE|GET) request '(.*)' with json$")
-    public void iSendPOSTRequestApiProjectsJsonWithJson(String method,String url, String jsonBody) {
+    @When("^I send (POST|PUT|DELETE|GET) request '(.*)' with json and (TOKEN|BASIC) authentication$")
+    public void iSendPOSTRequestApiProjectsJsonWithJson(String method,String url, String authentication, String jsonBody) {
         RequestInformation request = new RequestInformation();
         request.setUrl(HOST+this.replaceVariables(url));
         request.setBody(this.replaceVariables(jsonBody));
-        request.addHeaders(BASIC_AUTHENTICATION_HEADER,BASIC_AUTHENTICATION);
+        if (authentication.equals("TOKEN")) {
+//            this.authentication = authentication;
+            request.addHeaders(TOKEN_AUTHENTICATION_HEADER, this.replaceVariables(authentication));
+        }else {
+            request.addHeaders(BASIC_AUTHENTICATION_HEADER, BASIC_AUTHENTICATION);
+
+        }
 
         response= FactoryRequest.make(method.toLowerCase()).send(request);
     }
 
     @Then("^I expected the response code (\\d+)$")
     public void iExpectedTheResponseCode(int expectedResponseCode) {
-        System.out.println("Response Code "+response.getResponseCode());
+        System.out.println(" Response Code "+response.getResponseCode());
         Assert.assertEquals("ERROR !! the response code es incorrecto",expectedResponseCode,response.getResponseCode());
     }
 
     @And("^I expected the response body is equal$")
     public void iExpectedTheResponseBodyIsEqual(String expectedResponseBody) throws JSONException {
-        System.out.println("Response Body "+this.replaceVariables(response.getResponseBody()));
+        System.out.println(" Response Body "+this.replaceVariables(response.getResponseBody()));
         Assert.assertTrue("ERROR el response body es incorrecto",JsonHelper.areEqualJSON(this.replaceVariables(expectedResponseBody),response.getResponseBody()));
     }
 

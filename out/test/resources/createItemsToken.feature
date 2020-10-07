@@ -5,7 +5,19 @@ Feature: Items
 
     Given I have authentication to todo.ly
     # consumiendo el request
-    When I send POST request 'api/items.json' with json
+    When I send GET request 'api/authentication/token.json' with json and BASIC authentication
+    """
+    {
+        "TokenString": "EXCLUDE",
+        "UserEmail": "EXCLUDE",
+        "ExpirationTime": "EXCLUDE"
+    }
+    """
+    Then I expected the response code 200
+
+    And I get the property value 'TokenString' and save on TOKEN
+
+    When I send POST request 'api/items.json' with json and TOKEN authentication
     """
     {
        "Content":"ITEM TESTING"
@@ -48,7 +60,7 @@ Feature: Items
     """
     And I get the property value 'Id' and save on ID_ITEMS
 
-    When I send PUT request 'api/items/ID_ITEMS.json' with json
+    When I send PUT request 'api/items/ID_ITEMS.json' with json and TOKEN authentication
     """
     {
       "Checked":true
@@ -89,13 +101,13 @@ Feature: Items
       "OwnerId": 665838
     }
     """
-    When I send DELETE request 'api/items/ID_ITEMS.json' with json
+    When I send DELETE request 'api/items/ID_ITEMS.json' with json and TOKEN authentication
     """
     """
     Then I expected the response code 200
 
 
-    When I send GET request 'api/items/ID_ITEMS.json' with json
+    When I send GET request 'api/items/ID_ITEMS.json' with json and TOKEN authentication
     """
     """
     Then I expected the response code 200

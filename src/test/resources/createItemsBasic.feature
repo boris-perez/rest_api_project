@@ -1,11 +1,11 @@
 Feature: Items
 
-  @Items
+  @ItemsBasic
   Scenario: As a user I want to create a Item so that organize my task
 
     Given I have authentication to todo.ly
     # consumiendo el request
-    When I send POST request 'api/items.json' with json
+    When I send POST request 'api/items.json' with json and BASIC authentication
     """
     {
        "Content":"ITEM TESTING"
@@ -48,7 +48,7 @@ Feature: Items
     """
     And I get the property value 'Id' and save on ID_ITEMS
 
-    When I send PUT request 'api/items/ID_ITEMS.json' with json
+    When I send PUT request 'api/items/ID_ITEMS.json' with json and BASIC authentication
     """
     {
       "Checked":true
@@ -89,13 +89,13 @@ Feature: Items
       "OwnerId": 665838
     }
     """
-    When I send DELETE request 'api/items/ID_ITEMS.json' with json
+    When I send DELETE request 'api/items/ID_ITEMS.json' with json and BASIC authentication
     """
     """
     Then I expected the response code 200
 
 
-    When I send GET request 'api/items/ID_ITEMS.json' with json
+    When I send GET request 'api/items/ID_ITEMS.json' with json and BASIC authentication
     """
     """
     Then I expected the response code 200
